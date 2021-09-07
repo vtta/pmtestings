@@ -31,9 +31,9 @@ int main() {
     assert(load(&i16) == 16);
     assert(load(&i32) == 32);
     assert(load(&i64) == 64);
-    // assert(load(&i128) == v128);
-    // assert(load(&i256) == v256);
-    // assert(load(&i512) == v512);
+    assert(_mm_testn_epi64_mask(load(&i128), v128) == 0);
+    assert(_mm256_testn_epi64_mask(load(&i256), v256) == 0);
+    assert(_mm512_testn_epi64_mask(load(&i512), v512) == 0);
 
     return 0;
 }
