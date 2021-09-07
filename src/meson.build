@@ -1,10 +1,11 @@
 
-tbb = dependency('TBB')
+tbb = dependency('onetbb')
 libpmem = dependency('libpmem') 
 spdlog = dependency('spdlog') 
-numa = cxx.find_library('libnuma')
+numa = dependency('numa')
+# numa = meson.get_compiler('cpp').find_library('numa')
 
-deps = [libpmem, spdlog, numa, tbb]
+deps = [tbb, pmutils_dep]
 cpp_args = ['-march=native']
 
 pmem_dram_migration = executable('pmem_dram_migration',

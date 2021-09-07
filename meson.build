@@ -5,5 +5,8 @@ project('random-testing', 'cpp',
 # 'buildtype=release'
 cxx = meson.get_compiler('cpp')
 
+pmutils = subproject('pmutils')
+pmutils_dep = pmutils.get_variable('libpmutils_dep')
+
 include = include_directories('include')
 subdir('src')

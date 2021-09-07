@@ -1,5 +1,6 @@
 #include <immintrin.h>
 
+#include <cassert>
 #include <concepts>
 #include <iostream>
 

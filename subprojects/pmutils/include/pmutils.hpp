@@ -1,7 +1,5 @@
 #pragma once
-#ifdef DISABLE_LOGGING
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_OFF
-#endif
+// #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_OFF
 
 #include "pmutils/load.hpp"
 #include "pmutils/numa.hpp"
@@ -26,7 +24,7 @@ namespace fmt {
 namespace pmutils {
 
 template <typename T>
-void do_not_optimize(T const &val) {
+inline void do_not_optimize(T const &val) {
     asm volatile("" : : "m"(val) : "memory");
 }
 

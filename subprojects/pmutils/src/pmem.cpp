@@ -1,10 +1,15 @@
+#include "pmutils/pmem.hpp"
+
+#include <spdlog/spdlog.h>
+
 #include <filesystem>
 
 #include "libpmem.h"
+#include "pmutils/numa.hpp"
 
 namespace pmutils {
 
-inline void *open(char const *path, size_t len) {
+void *open(char const *path, size_t len) {
     void *ret = nullptr;
 
     size_t mapped_len;

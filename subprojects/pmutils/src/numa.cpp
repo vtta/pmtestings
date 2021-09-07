@@ -1,3 +1,4 @@
+#include "pmutils/numa.hpp"
 
 #include <numa.h>
 #include <numaif.h>
@@ -8,7 +9,7 @@
 
 namespace pmutils {
 
-inline void cpubind(int idx) {
+void cpubind(int idx) {
     cpu_set_t set;
     CPU_ZERO(&set);
     CPU_SET(idx, &set);
@@ -22,7 +23,7 @@ inline void cpubind(int idx) {
                  sched_getcpu(), numa_node_of_cpu(sched_getcpu()));
 }
 
-inline int numa_node_of(void *ptr) {
+int numa_node_of(void *ptr) {
     int node = -1, err = 0;
     if (0 != (err = get_mempolicy(&node, nullptr, 0, ptr,
                                   MPOL_F_NODE | MPOL_F_ADDR))) {
@@ -32,7 +33,7 @@ inline int numa_node_of(void *ptr) {
     return node;
 }
 
-inline void prefault(void *begin, size_t len, size_t granularity = 2ul << 20) {
+void prefault(void *begin, size_t len, size_t granularity) {
     unsigned char *base = (unsigned char *)begin;
     for (size_t i = 0; i < len; i += granularity) {
         auto reg = base[i];

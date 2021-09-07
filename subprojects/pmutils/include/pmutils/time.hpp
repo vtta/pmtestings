@@ -3,6 +3,7 @@
 #include <chrono>
 #include <concepts>
 #include <functional>
+#include <type_traits>
 
 namespace pmutils {
 
@@ -29,4 +30,5 @@ requires std::is_void<std::invoke_result_t<Callable, Args...>>::value
     auto end = clock::now();
     return end - begin;
 }
+
 }  // namespace pmutils

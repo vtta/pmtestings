@@ -1,4 +1,7 @@
+#include <libpmem.h>
+#include <numa.h>
 #include <oneapi/tbb.h>
+#include <spdlog/spdlog.h>
 
 #include <execution>
 
