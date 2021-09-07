@@ -21,3 +21,10 @@ bigmem = executable('bigmem',
            dependencies: deps,
            cpp_args: cpp_args)
 # test('bigmem', bigmem)
+
+load_store = executable('load_store',
+           'load_store.cpp',
+           include_directories: include,
+           dependencies: deps,
+           cpp_args: cpp_args)
+# test('load_store', load_store)
