@@ -64,7 +64,8 @@
         "filesystem": "cpp",
         "list": "cpp",
         "shared_mutex": "cpp",
-        "cfenv": "cpp"
+        "cfenv": "cpp",
+        "execution": "cpp"
     },
     "editor.formatOnSave": true
 }
