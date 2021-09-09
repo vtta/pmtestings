@@ -18,7 +18,7 @@ int main() {
         numa_alloc_onnode(POOL_SIZE, 3),
     };
     for (auto i = 0ul; i < 4; ++i) {
-        auto dram = drampool[i];
+        auto dram = (char *)drampool[i];
         tbb::parallel_for(tbb::blocked_range{0ul, POOL_SIZE}, [&](auto &r) {
             auto begin = dram + r.begin();
             pmutils::prefault(begin, r.size(), 4ul << 10);
@@ -31,7 +31,7 @@ int main() {
         pmutils::open("/mnt/pmem3/jlhu/random-testing-0", POOL_SIZE),
     };
     for (auto i = 0ul; i < 4; ++i) {
-        auto pmem = pmempool[i];
+        auto pmem = (char *)pmempool[i];
         tbb::parallel_for(tbb::blocked_range{0ul, POOL_SIZE}, [&](auto &r) {
             auto begin = pmem + r.begin();
             pmem_memset_persist(begin, 'x', r.size());
@@ -46,16 +46,16 @@ int main() {
     }
 
     for (auto i = 0ul; i < 4; ++i) {
-        auto dram = drampool[i];
+        auto dram = (char *)drampool[i];
         for (auto j = 0ul; j < 4; ++j) {
-            auto pmem = pmempool[j];
+            auto pmem = (char *)pmempool[j];
             // single thread
             // auto t = pmutils::time([&] { memcpy(dram, pmem, POOL_SIZE); });
             // multi thread
             auto t = pmutils::time([&] {
                 tbb::parallel_for(
                     tbb::blocked_range{0ul, POOL_SIZE}, [&](auto &r) {
-                        memcpy(dram + r.begin(), pmem + r.begin(), r.size());
+                        memcpy((char *)dram + r.begin(), (char *)pmem + r.begin(), r.size());
                     });
             });
             spdlog::info("DRAM {} <- PMEM {} speed {:.4f} GiB/s", i, j,
