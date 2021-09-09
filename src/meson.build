@@ -23,6 +23,13 @@ bigmem = executable('bigmem',
            cpp_args: cpp_args)
 # test('bigmem', bigmem)
 
+remote_latency = executable('remote_latency',
+           'remote_latency.cpp',
+           include_directories: include,
+           dependencies: deps,
+           cpp_args: cpp_args)
+# test('remote_latency', remote_latency)
+
 load_store = executable('load_store',
            'load_store.cpp',
            include_directories: include,
